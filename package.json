@@ -1,0 +1,24 @@
+{
+    "name": "imdb_api",
+    "version": "1.0.0",
+    "description": "fetch movie data",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon index.js",
+        "start2": "nodemon index2.js"
+    },
+    "author": "Chamira",
+    "license": "ISC",
+    "dependencies": {
+        "async": "^2.6.1",
+        "axios": "^0.18.0",
+        "chalk": "^2.4.1",
+        "cron": "^1.4.1",
+        "express": "^4.16.3",
+        "moment": "^2.22.2",
+        "mysql": "^2.15.0",
+        "mysql2": "^1.5.3",
+        "sequelize": "^4.38.0"
+    }
+}
