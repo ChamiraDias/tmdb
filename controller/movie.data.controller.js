@@ -256,8 +256,11 @@ controller.getSingleMovieCrewDetail = function(movieid) {
         var url = 'https://api.themoviedb.org/3/movie/' + movieid + '/credits?api_key=1527e6f2466d479e167b14c962e94e0e';
 
         console.log("Get data for movie - ", movieid);
+        console.log(url);
         axios.get(url)
             .then(function(results) {
+
+                console.log("Got results", movieid);
                 result = results.data;
 
                 let pArray = [];
