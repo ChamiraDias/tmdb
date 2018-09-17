@@ -261,13 +261,11 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                 result = results.data;
 
                 let pArray = [];
-                if (results.data.cast) {
+                if (results.data.cast && results.data.cast.length > 0) {
 
                     let createFilemograpies = [];
-                    let createFilemograpyMovieIds = [];
 
                     for (let cast of results.data.cast) {
-                        createFilemograpyMovieIds.push(movieid);
                         createFilemograpies.push({
                             'movie_id': movieid,
                             'user_id': cast.id,
@@ -285,16 +283,15 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                             .then(d => {
                                 movie.update({ crewPulledAt: moment() }, {
                                     where: {
-                                        movie_id: createFilemograpyMovieIds
+                                        movie_id: movieid
                                     }
                                 })
                                 resolve1(true);
                             }).catch(e => {
 
-                                console.log("Error in set - ", createFilemograpyMovieIds);
                                 movie.update({ crewPulledAt: null, crewPulledP: null }, {
                                     where: {
-                                        movie_id: createFilemograpyMovieIds,
+                                        movie_id: movieid,
                                         crewPulledAt: null
                                     }
                                 })
@@ -305,13 +302,11 @@ controller.getSingleMovieCrewDetail = function(movieid) {
 
                 }
 
-                if (results.data.crew) {
+                if (results.data.crew && results.data.crew.length > 0) {
 
                     let createCrewFilemograpies = [];
-                    let createCrewFilemograpyMovieIds = [];
 
                     for (let crew of results.data.crew) {
-                        createCrewFilemograpyMovieIds.push(movieid);
                         createCrewFilemograpies.push({
                             'movie_id': movieid,
                             'user_id': crew.id,
@@ -323,26 +318,25 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                         });
                     }
 
-                    pArray.push(new Promise((resolve1, reject1) => {
+                    pArray.push(new Promise((resolve2, reject1) => {
 
                         filmography.bulkCreate(createCrewFilemograpies)
                             .then(d => {
                                 movie.update({ crewPulledAt: moment() }, {
                                     where: {
-                                        movie_id: createCrewFilemograpyMovieIds
+                                        movie_id: movieid
                                     }
                                 })
-                                resolve1(true);
+                                resolve2(true);
                             }).catch(e => {
 
-                                console.log("Error in set - ", createCrewFilemograpyMovieIds);
                                 movie.update({ crewPulledAt: null, crewPulledP: null }, {
                                     where: {
-                                        movie_id: createCrewFilemograpyMovieIds,
+                                        movie_id: movieid,
                                         crewPulledAt: null
                                     }
                                 })
-                                resolve1(true);
+                                resolve2(true);
                             });
                     }))
 
