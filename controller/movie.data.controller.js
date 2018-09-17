@@ -172,7 +172,8 @@ controller.GetMoviesProProcessing = (limit) => {
         movie.findAll({
             where: {
                 crewPulledAt: null,
-                crewPulledP: null
+                crewPulledP: null,
+                crewFailed: null
             },
             limit: limit
         }).then(function(results) {
@@ -359,7 +360,7 @@ controller.getSingleMovieCrewDetail = function(movieid) {
 
             }).catch(e => {
                 console.log("Error - Get data for movie - ", movieid, e);
-                movie.update({ crewPulledAt: null, crewPulledP: null }, {
+                movie.update({ crewPulledAt: null, crewPulledP: null, crewFailed: moment() }, {
                         where: {
                             movie_id: result.id
                         }

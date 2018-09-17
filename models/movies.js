@@ -19,6 +19,8 @@ const movie = sequelize.sequelize.define('movies', {
     detailsPulledP: sequelize.Sequelize.DATE,
     crewPulledAt: sequelize.Sequelize.DATE,
     crewPulledP: sequelize.Sequelize.DATE,
+    crewFailed: sequelize.Sequelize.DATE,
+
 
 })
 
