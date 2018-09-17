@@ -362,7 +362,7 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                 console.log("Error - Get data for movie - ", movieid, e);
                 movie.update({ crewPulledAt: null, crewPulledP: null, crewFailed: moment() }, {
                         where: {
-                            movie_id: result.id
+                            movie_id: movieid
                         }
                     })
                     .then(function(yyy) { resolve(true); }).catch(e => { resolve(true); });
