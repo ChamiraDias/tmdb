@@ -314,6 +314,15 @@ controller.getSingleMovieCrewDetail = function(movieid) {
 
                 }
 
+
+                if (results.data.cast && results.data.cast.length == 0) {
+                    movie.update({ crewPulledAt: moment() }, {
+                        where: {
+                            movie_id: movieid
+                        }
+                    })
+                }
+
                 if (results.data.crew && results.data.crew.length > 0) {
 
                     let createCrewFilemograpies = [];
@@ -367,15 +376,32 @@ controller.getSingleMovieCrewDetail = function(movieid) {
 
                 }
 
-                //rr
-                Promise.all(pArray)
-                    .then(data => {
-                        resolve(data);
-                    }).catch(e => {
 
-                        console.log("EEEEEEEE - 7", e);
-                        resolve(true);
+                if (results.data.crew && results.data.crew.length == 0) {
+                    movie.update({ crewPulledAt: moment() }, {
+                        where: {
+                            movie_id: movieid
+                        }
                     })
+                }
+
+                //rr
+                if (pArray.length > 0) {
+
+                    Promise.all(pArray)
+                        .then(data => {
+                            resolve(data);
+                        }).catch(e => {
+
+                            console.log("EEEEEEEE - 7", e);
+                            resolve(true);
+                        })
+
+                } else {
+
+                    console.log("Empty Crew - ", movieid);
+                    resolve(true);
+                }
 
             }).catch(e => {
                 console.log("Error - Get data for movie - ", movieid, e);
