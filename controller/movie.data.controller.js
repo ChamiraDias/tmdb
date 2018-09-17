@@ -286,15 +286,24 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                                         movie_id: movieid
                                     }
                                 })
+
+                                .catch(e => {
+
+                                    console.log("EEEEEEEE - 1", e);
+                                })
                                 resolve1(true);
                             }).catch(e => {
-
+                                console.log("EEEEEEEE - 2", e);
                                 movie.update({ crewPulledAt: null, crewPulledP: null }, {
-                                    where: {
-                                        movie_id: movieid,
-                                        crewPulledAt: null
-                                    }
-                                })
+                                        where: {
+                                            movie_id: movieid,
+                                            crewPulledAt: null
+                                        }
+                                    })
+                                    .catch(e => {
+
+                                        console.log("EEEEEEEE - 3", e);
+                                    })
                                 resolve1(true);
                             });
                     }))
@@ -327,14 +336,25 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                                         movie_id: movieid
                                     }
                                 })
+
+                                .catch(e => {
+
+                                    console.log("EEEEEEEE - 4", e);
+                                })
                                 resolve2(true);
                             }).catch(e => {
 
+                                console.log("EEEEEEEE - 5", e);
                                 movie.update({ crewPulledAt: null, crewPulledP: null }, {
                                     where: {
                                         movie_id: movieid,
                                         crewPulledAt: null
                                     }
+                                })
+
+                                .catch(e => {
+
+                                    console.log("EEEEEEEE - 6", e);
                                 })
                                 resolve2(true);
                             });
@@ -349,6 +369,8 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                     .then(data => {
                         resolve(data);
                     }).catch(e => {
+
+                        console.log("EEEEEEEE - 7", e);
                         resolve(true);
                     })
 
@@ -359,7 +381,12 @@ controller.getSingleMovieCrewDetail = function(movieid) {
                             movie_id: movieid
                         }
                     })
-                    .then(function(yyy) { resolve(true); }).catch(e => { resolve(true); });
+                    .then(function(yyy) { resolve(true); })
+                    .catch(e => {
+
+                        console.log("EEEEEEEE - 8", e);
+                        resolve(true);
+                    });
 
             });
     });
